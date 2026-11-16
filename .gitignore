@@ -1,0 +1,20 @@
+# 依存
+node_modules/
+
+# 実行の生成物
+.wrangler/
+
+# wrangler types の生成物（pnpm install のときに生成する）
+worker-configuration.d.ts
+
+# 手元の秘密情報
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+
+# ログ
+*.log
+
+# OS
+.DS_Store
