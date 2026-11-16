@@ -46,6 +46,8 @@ sendo（と sendo-reader）を、それぞれの README の手順で、fork と 
    | Worker の名前 | `sendo-updater`（変えない。`wrangler.jsonc` の `name` と違うとビルドが失敗する） |
    | ビルドのコマンド | 空のまま |
    | デプロイのコマンド | `pnpm run deploy` |
+   | プレビューのコマンド | `npx wrangler versions upload`（Workers Builds の既定。空のままでは先に進めない） |
+   | プレビュービルドを有効化 | オフのまま（`main` 以外のブランチを使わないので） |
 
 4. 1 回目のビルドは、秘密がなくて止まる。Worker の「設定」→「変数とシークレット」に、次の 2 つを入れる
    - `GITHUB_TOKEN`：型を「**シークレット**」にして、2 のトークン
@@ -54,6 +56,9 @@ sendo（と sendo-reader）を、それぞれの README の手順で、fork と 
 6. 確かめる：Worker の「ログ」（Observability）に、遅れている fork があるときだけ、fork ごとの結果
    （`merged upstream`、`waiting for …`）が出る。上流が進んでいれば、数分のうちに fork に
    「Merge branch 'sendo-feed:main' into main」のコミットが入る
+   - 初めてのデプロイのあと、毎分の起動が始まるまで、15 分ほどかかることがある（Cloudflare が cron を
+     行き渡らせるのを待つ）。それまでは、ログに何も出なくても正常。動き出すと、Worker の「設定」→
+     「トリガー イベント」に、毎分の起動が並ぶ
 
 トークンの期限が来たら、同じ設定で作り直し、画面の `GITHUB_TOKEN` を入れ替えます（デプロイし直す必要はありません）。
 
